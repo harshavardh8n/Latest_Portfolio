@@ -40,13 +40,13 @@ const HeroSection = () => {
           <div>
             <Link
               href="/#contact"
-              className="px-6 inline-block py-3 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-200 text-white"
+              className="px-6 inline-block py-3 w-full sm:w-fit rounded-full mr-4 bg-gradient-to-br from-primary-500 to-green hover:bg-slate-200 text-white"
             >
               Hire Me
             </Link>
             {/* Use a regular <a> tag for download */}
             <a
-              href="/images/resume-mark10.pdf" // Path to the resume
+              href="/images/resume-mark11.pdf" // Path to the resume
               download="Harshavardhan_Gaikwad_Resume" // Download name
               className="px-1 inline-block py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3"
             >

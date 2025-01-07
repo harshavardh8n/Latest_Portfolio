@@ -26,8 +26,9 @@ const achievementsList = [
     postfix: "🌟",
   },
   {
-    metric: "Years",
-    value: "3",
+    metric: "Skills",
+    value: "25",
+    postfix: "+",
   },
 ];
 
