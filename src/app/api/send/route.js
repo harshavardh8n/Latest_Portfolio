@@ -1,29 +1,33 @@
-import { NextResponse } from "next/server";
-import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const fromEmail = process.env.FROM_EMAIL;
+import emailjs from "emailjs-com";
 
-export async function POST(req, res) {
-  const { email, subject, message } = await req.json();
-  // console.log(fromEmail)
-  console.log(email, subject, message);
+export async function POST(req) {
   try {
-    const data = await resend.emails.send({
-      from: fromEmail,
-      to: [fromEmail, email],
+    const { email, subject, message } = await req.json();
+
+    const templateParams = {
+      from_name: email,
       subject: subject,
-      react: (
-        <>
-          <h1>{subject}</h1>
-          <p>Thank you for contacting us!</p>
-          <p>New message submitted:</p>
-          <p>{message}</p>
-        </>
-      ),
+      message: message,
+    };
+
+    // Using the Node.js SDK for server-side
+    const response = await emailjs.send(
+      process.env.EMAIL_JS_SERVICE_ID,
+      process.env.EMAIL_JS_TEMPLATE_ID,
+      templateParams,
+      process.env.EMAIL_JS_PUBLIC_KEY
+    );
+
+    return new Response(JSON.stringify({ status: "success", response }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
     });
-    return NextResponse.json(data);
-  } catch (error) {
-    return NextResponse.json({ error });
+  } catch (err) {
+    console.error("FAILED...", err);
+    return new Response(
+      JSON.stringify({ status: "error", message: err.message }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
   }
 }
